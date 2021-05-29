@@ -10,4 +10,4 @@
 
 - Data Binding - This is a support library that allows you to bind UI components in your layouts to data sources in your app using a declarative format rather than programmatically.
 
--
+- Coroutines - A coroutine is a concurrency design pattern that you can use on Android to simplify code that executes asynchronously.
