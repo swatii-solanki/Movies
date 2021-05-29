@@ -1,6 +1,5 @@
 package com.movie.data.network
 
-import androidx.databinding.library.BuildConfig
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
@@ -23,11 +22,9 @@ object RetrofitClient {
     }
 
     private fun getRetrofitClient(): OkHttpClient {
-        val levelType: HttpLoggingInterceptor.Level = if (BuildConfig.DEBUG)
-            HttpLoggingInterceptor.Level.BODY else HttpLoggingInterceptor.Level.NONE
-
         val logging = HttpLoggingInterceptor()
-        logging.setLevel(levelType)
+        logging.level = HttpLoggingInterceptor.Level.BODY
+
         return OkHttpClient.Builder()
             .connectTimeout(2, TimeUnit.MINUTES)
             .readTimeout(2, TimeUnit.MINUTES)

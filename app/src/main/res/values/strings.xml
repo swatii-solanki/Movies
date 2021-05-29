@@ -1,4 +1,9 @@
 <resources>
     <string name="app_name">Movie</string>
     <string name="now_showing">Now Showing</string>
+    <string name="ok">Ok</string>
+    <string name="something_went_wrong">Something Went Wrong, Try Again!!</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="movies">Movies</string>
 </resources>
