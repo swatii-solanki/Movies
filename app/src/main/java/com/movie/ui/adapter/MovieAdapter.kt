@@ -4,7 +4,6 @@ import android.content.Context
 import android.content.Intent
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.core.content.ContextCompat
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
@@ -14,10 +13,10 @@ import com.movie.data.response.MMovie
 import com.movie.databinding.ItemMovieBinding
 import com.movie.ui.activity.ViewMovieActivity
 
-class MovieAdapter(private val context: Context) : RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
+class MovieAdapter(private val context: Context, private var movies: ArrayList<MMovie>) :
+    RecyclerView.Adapter<MovieAdapter.ViewHolder>() {
 
     private lateinit var binding: ItemMovieBinding
-    private var movies: ArrayList<MMovie> = ArrayList()
 
     class ViewHolder(val binding: ItemMovieBinding) : RecyclerView.ViewHolder(binding.root)
 
@@ -40,16 +39,11 @@ class MovieAdapter(private val context: Context) : RecyclerView.Adapter<MovieAda
             .into(holder.binding.iv)
 
         holder.itemView.setOnClickListener {
-            val intent = Intent(this.context,ViewMovieActivity::class.java)
-            intent.putExtra("id",movie.id)
+            val intent = Intent(this.context, ViewMovieActivity::class.java)
+            intent.putExtra("id", movie.id)
             context.startActivity(intent)
         }
     }
 
     override fun getItemCount() = movies.size
-
-    fun setMovies(movies: ArrayList<MMovie>) {
-        this.movies = movies
-        notifyDataSetChanged()
-    }
 }

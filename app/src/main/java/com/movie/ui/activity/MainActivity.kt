@@ -17,6 +17,7 @@ import com.movie.data.network.API
 import com.movie.data.network.Resource
 import com.movie.data.network.RetrofitClient
 import com.movie.data.repo.MovieRepo
+import com.movie.data.response.MMovie
 import com.movie.databinding.ActivityMainBinding
 import com.movie.ui.adapter.MovieAdapter
 import com.movie.ui.adapter.MoviePagerAdapter
@@ -31,7 +32,7 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         private const val TAG = "MainActivity"
-        const val page = 1
+        var page = 1
     }
 
     private lateinit var binding: ActivityMainBinding
@@ -39,6 +40,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var loader: MyLoader
     private lateinit var adapter: MovieAdapter
     private lateinit var viewPagerAdapter: MoviePagerAdapter
+    private var movies: ArrayList<MMovie> = ArrayList()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -65,8 +67,10 @@ class MainActivity : AppCompatActivity() {
                     binding.scrollView.visibility = View.VISIBLE
                     loader.dismiss()
                     Log.d(TAG, "init: $it")
-                    adapter.setMovies(it.value.results)
-                    viewPagerAdapter.setMovies(it.value.results)
+                    movies.addAll(it.value.results)
+                    adapter.notifyDataSetChanged()
+                    if (page == 1)
+                        viewPagerAdapter.setMovies(it.value.results)
                 }
                 is Resource.Failure -> {
                     binding.tvNoInternet.visibility = View.VISIBLE
@@ -115,14 +119,12 @@ class MainActivity : AppCompatActivity() {
         val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
         val pageTransformer = ViewPager2.PageTransformer { page: View, position: Float ->
             page.translationX = -pageTranslationX * position
-            // Next line scales the item's height. You can remove it if you don't want this effect
+            // Next line scales the item's height.
             page.scaleY = 1 - (0.25f * kotlin.math.abs(position))
             // If you want a fading effect uncomment the next line:
             // page.alpha = 0.25f + (1 - abs(position))
         }
         viewPager2.setPageTransformer(pageTransformer)
-
-
         val recyclerViewInstance =
             binding.viewPager2.children.first { it is RecyclerView } as RecyclerView
         recyclerViewInstance.also {
@@ -145,9 +147,21 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setRecyclerView() {
-        binding.rv.layoutManager = GridLayoutManager(this, 3)
+        val layoutManager = GridLayoutManager(this, 3)
+        binding.rv.layoutManager = layoutManager
         binding.rv.setHasFixedSize(true)
-        adapter = MovieAdapter(this)
+        adapter = MovieAdapter(this, movies)
         binding.rv.adapter = adapter
+
+        binding.scrollView.setOnScrollChangeListener { v: NestedScrollView, _: Int, scrollY: Int, _: Int, oldScrollY: Int ->
+            if (v.getChildAt(v.childCount - 1) != null) {
+                if (scrollY >= v.getChildAt(v.childCount - 1)
+                        .measuredHeight - v.measuredHeight &&
+                    scrollY > oldScrollY
+                ) {
+                    viewModel.getMovies(++page)
+                }
+            }
+        }
     }
 }
