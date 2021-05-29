@@ -3,216 +3,222 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <androidx.core.widget.NestedScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true"
-        android:fitsSystemWindows="true">
+        android:layout_height="match_parent">
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/root"
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="invisible">
+            android:fillViewport="true"
+            android:fitsSystemWindows="true">
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/constraintLayout"
+                android:id="@+id/root"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@color/blue"
-                android:paddingBottom="@dimen/_50sdp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                tools:context=".ui.activity.ViewMovieActivity">
+                android:layout_height="match_parent"
+                android:visibility="invisible">
 
-                <com.google.android.material.appbar.MaterialToolbar
-                    android:id="@+id/toolbar"
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/constraintLayout"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@color/blue"
-                    android:minHeight="?attr/actionBarSize"
-                    android:theme="?attr/actionBarTheme"
+                    android:paddingBottom="@dimen/_50sdp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:navigationIcon="@drawable/ic_back">
+                    tools:context=".ui.activity.ViewMovieActivity">
 
-                    <com.google.android.material.textview.MaterialTextView
-                        android:id="@+id/toolbarTitle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center_horizontal"
-                        android:fontFamily="@font/poppins_regular"
-                        android:gravity="center_horizontal"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/_16ssp"
-                        tools:text="@string/movies" />
-                </com.google.android.material.appbar.MaterialToolbar>
-
-                <com.google.android.material.card.MaterialCardView
-                    android:id="@+id/materialCardView"
-                    android:layout_width="@dimen/_120sdp"
-                    android:layout_height="@dimen/_150sdp"
-                    android:layout_marginStart="@dimen/_16sdp"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    app:cardCornerRadius="@dimen/_2sdp"
-                    app:cardElevation="@dimen/_8sdp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbar">
-
-                    <FrameLayout
+                    <com.google.android.material.appbar.MaterialToolbar
+                        android:id="@+id/toolbar"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_height="wrap_content"
+                        android:background="@color/blue"
+                        android:minHeight="?attr/actionBarSize"
+                        android:theme="?attr/actionBarTheme"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:navigationIcon="@drawable/ic_back">
 
-                        <ImageView
-                            android:id="@+id/iv"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:scaleType="centerCrop" />
-
-                        <ImageView
+                        <com.google.android.material.textview.MaterialTextView
+                            android:id="@+id/toolbarTitle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:src="@drawable/ic_play" />
-                    </FrameLayout>
-                </com.google.android.material.card.MaterialCardView>
+                            android:layout_gravity="center_horizontal"
+                            android:fontFamily="@font/poppins_regular"
+                            android:gravity="center_horizontal"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/_16ssp"
+                            tools:text="@string/movies" />
+                    </com.google.android.material.appbar.MaterialToolbar>
 
-                <TextView
-                    android:id="@+id/tvMovieName"
+                    <com.google.android.material.card.MaterialCardView
+                        android:id="@+id/materialCardView"
+                        android:layout_width="@dimen/_120sdp"
+                        android:layout_height="@dimen/_150sdp"
+                        android:layout_marginStart="@dimen/_16sdp"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        app:cardCornerRadius="@dimen/_2sdp"
+                        app:cardElevation="@dimen/_8sdp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/toolbar">
+
+                        <FrameLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <ImageView
+                                android:id="@+id/iv"
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent"
+                                android:scaleType="centerCrop" />
+
+                            <ImageView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:src="@drawable/ic_play" />
+                        </FrameLayout>
+                    </com.google.android.material.card.MaterialCardView>
+
+                    <TextView
+                        android:id="@+id/tvMovieName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/_10sdp"
+                        android:ellipsize="marquee"
+                        android:fontFamily="@font/poppins_medium"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_14ssp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toEndOf="@+id/guideline2"
+                        app:layout_constraintTop_toBottomOf="@+id/toolbar" />
+
+                    <androidx.constraintlayout.widget.Guideline
+                        android:id="@+id/guideline2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical"
+                        app:layout_constraintEnd_toEndOf="@+id/materialCardView"
+                        app:layout_constraintGuide_begin="194dp" />
+
+                    <TextView
+                        android:id="@+id/tvDate"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintStart_toStartOf="@+id/guideline2"
+                        app:layout_constraintTop_toBottomOf="@+id/tvMovieName" />
+
+                    <TextView
+                        android:id="@+id/tvGenre"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@+id/guideline2"
+                        app:layout_constraintTop_toBottomOf="@+id/tvDate" />
+
+                    <TextView
+                        android:id="@+id/tvReview"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_12ssp"
+                        app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
+                        app:layout_constraintStart_toStartOf="@+id/guideline2" />
+
+                    <RatingBar
+                        android:id="@+id/ratingBar"
+                        style="@style/Widget.AppCompat.RatingBar.Small"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/_16sdp"
+                        android:isIndicator="true"
+                        android:progressTint="@color/white"
+                        app:layout_constraintBottom_toTopOf="@+id/tvReview"
+                        app:layout_constraintStart_toStartOf="@+id/guideline2" />
+
+                    <TextView
+                        android:id="@+id/tvRatingCount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="@dimen/_10sdp"
+                        android:layout_marginBottom="@dimen/_12sdp"
+                        android:fontFamily="@font/poppins_regular"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/_10ssp"
+                        app:layout_constraintBottom_toTopOf="@+id/tvReview"
+                        app:layout_constraintStart_toEndOf="@+id/ratingBar" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <com.google.android.material.button.MaterialButton
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/_10sdp"
-                    android:ellipsize="marquee"
+                    android:layout_marginEnd="@dimen/_16sdp"
+                    android:elevation="@dimen/_8sdp"
                     android:fontFamily="@font/poppins_medium"
-                    android:textColor="@color/white"
+                    android:paddingStart="@dimen/_16sdp"
+                    android:paddingTop="@dimen/_6sdp"
+                    android:paddingEnd="@dimen/_16sdp"
+                    android:text="@string/book_now"
+                    android:textColor="@color/blue"
+                    android:textSize="@dimen/_14ssp"
+                    app:backgroundTint="@color/white"
+                    app:cornerRadius="@dimen/_20sdp"
+                    app:elevation="@dimen/_8sdp"
+                    app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+                <TextView
+                    android:id="@+id/textView6"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="@dimen/_16ssp"
+                    android:layout_marginTop="@dimen/_30sdp"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="@string/synopsis"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/_16ssp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+
+                <TextView
+                    android:id="@+id/tvDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_regular"
+                    android:padding="@dimen/_16sdp"
                     android:textSize="@dimen/_14ssp"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintHorizontal_bias="0.0"
-                    app:layout_constraintStart_toEndOf="@+id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@+id/toolbar" />
-
-                <androidx.constraintlayout.widget.Guideline
-                    android:id="@+id/guideline2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    app:layout_constraintEnd_toEndOf="@+id/materialCardView"
-                    app:layout_constraintGuide_begin="194dp" />
-
-                <TextView
-                    android:id="@+id/tvDate"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_12ssp"
-                    app:layout_constraintStart_toStartOf="@+id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@+id/tvMovieName" />
-
-                <TextView
-                    android:id="@+id/tvGenre"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    app:layout_constraintStart_toStartOf="@+id/guideline2"
-                    app:layout_constraintTop_toBottomOf="@+id/tvDate" />
-
-                <TextView
-                    android:id="@+id/tvReview"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_12ssp"
-                    app:layout_constraintBottom_toBottomOf="@+id/materialCardView"
-                    app:layout_constraintStart_toStartOf="@+id/guideline2" />
-
-                <RatingBar
-                    android:id="@+id/ratingBar"
-                    style="@style/Widget.AppCompat.RatingBar.Small"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/_16sdp"
-                    android:isIndicator="true"
-                    android:progressTint="@color/white"
-                    app:layout_constraintBottom_toTopOf="@+id/tvReview"
-                    app:layout_constraintStart_toStartOf="@+id/guideline2" />
-
-                <TextView
-                    android:id="@+id/tvRatingCount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginStart="@dimen/_10sdp"
-                    android:layout_marginBottom="@dimen/_12sdp"
-                    android:fontFamily="@font/poppins_regular"
-                    android:textColor="@color/white"
-                    android:textSize="@dimen/_10ssp"
-                    app:layout_constraintBottom_toTopOf="@+id/tvReview"
-                    app:layout_constraintStart_toEndOf="@+id/ratingBar" />
-
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6" />
 
             </androidx.constraintlayout.widget.ConstraintLayout>
+        </androidx.core.widget.NestedScrollView>
 
-            <com.google.android.material.button.MaterialButton
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="@dimen/_16sdp"
-                android:elevation="@dimen/_8sdp"
-                android:fontFamily="@font/poppins_medium"
-                android:paddingStart="@dimen/_16sdp"
-                android:paddingTop="@dimen/_6sdp"
-                android:paddingEnd="@dimen/_16sdp"
-                android:text="@string/book_now"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/_14ssp"
-                app:backgroundTint="@color/white"
-                app:cornerRadius="@dimen/_20sdp"
-                app:elevation="@dimen/_8sdp"
-                app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
+        <TextView
+            android:id="@+id/tvNoInternet"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins_regular"
+            android:gravity="center"
+            android:padding="@dimen/_16sdp"
+            android:text="@string/internet_connection_not_available_try_again"
+            android:textColor="@color/blue"
+            android:textSize="@dimen/_14ssp"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView6"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="@dimen/_16ssp"
-                android:layout_marginTop="@dimen/_30sdp"
-                android:fontFamily="@font/poppins_medium"
-                android:text="@string/synopsis"
-                android:textColor="@color/black"
-                android:textSize="@dimen/_16ssp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/constraintLayout" />
-
-            <TextView
-                android:id="@+id/tvDesc"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:padding="@dimen/_16sdp"
-                android:text="@string/movies"
-                android:textSize="@dimen/_14ssp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6" />
-
-            <TextView
-                android:id="@+id/tvNoInternet"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:fontFamily="@font/poppins_regular"
-                android:gravity="center"
-                android:padding="@dimen/_16sdp"
-                android:text="@string/internet_connection_not_available_try_again"
-                android:textColor="@color/blue"
-                android:textSize="@dimen/_14ssp"
-                android:visibility="gone"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/constraintLayout" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
-    </androidx.core.widget.NestedScrollView>
+    </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

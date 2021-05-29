@@ -51,10 +51,14 @@ class ViewMovieActivity : AppCompatActivity() {
                 is Resource.Loading -> loader.show()
                 is Resource.Success -> {
                     loader.dismiss()
+                    binding.tvNoInternet.visibility = View.GONE
+                    binding.root.visibility = View.VISIBLE
                     Log.d(TAG, "init: $it")
                     setData(it.value)
                 }
                 is Resource.Failure -> {
+                    binding.tvNoInternet.visibility = View.VISIBLE
+                    binding.tvNoInternet.text = getString(R.string.something_went_wrong)
                     loader.dismiss()
                     Utility.showSnackBar(
                         this,
@@ -68,8 +72,7 @@ class ViewMovieActivity : AppCompatActivity() {
 
     private fun setData(movie: MMovie) {
         binding.apply {
-            root.visibility = View.VISIBLE
-            tvNoInternet.visibility = View.GONE
+
             Glide.with(this@ViewMovieActivity)
                 .load("https://image.tmdb.org/t/p/w400${movie.poster_path}")
                 .thumbnail(0.1f)
