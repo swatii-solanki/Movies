@@ -14,4 +14,4 @@
 
 ## Screens
 
- <img src="https://github.com/swatii-solanki/Movies/blob/master/screenshots/device-2021-05-29-153522.png" width="300" height="620"> <img src="https://github.com/swatii-solanki/Movies/blob/master/screenshots/device-2021-05-29-153640.png" width="300" height="620">  <img src="https://github.com/swatii-solanki/Movies/blob/master/screenshots/device-2021-05-29-153614.png" width="300" height="620">
+ <img src="https://github.com/swatii-solanki/Movies/blob/master/screenshots/device-2021-05-29-153522.png" width="300" height="550"> <img src="https://github.com/swatii-solanki/Movies/blob/master/screenshots/device-2021-05-29-153640.png" width="300" height="550">  <img src="https://github.com/swatii-solanki/Movies/blob/master/screenshots/device-2021-05-29-153614.png" width="300" height="550">
