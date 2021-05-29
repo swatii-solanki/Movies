@@ -51,7 +51,6 @@ class MainActivity : AppCompatActivity() {
     private fun init() {
         loader = MyLoader(this)
         initializeViewModel()
-        changeToolbarTitle()
         setViewPager()
         setRecyclerView()
         if (Utility.isNetworkAvailable(this)) {
@@ -84,21 +83,6 @@ class MainActivity : AppCompatActivity() {
                 }
             }
         })
-    }
-
-    private fun changeToolbarTitle() {
-        binding.toolbarTitle.text = getString(R.string.movies)
-        val scrollBounds = Rect()
-        binding.scrollView.getHitRect(scrollBounds)
-
-        binding.scrollView.setOnScrollChangeListener { _: NestedScrollView, i: Int, i1: Int, i2: Int, i3: Int ->
-            if (binding.textView.getLocalVisibleRect(scrollBounds)) {
-                if (!binding.textView.getLocalVisibleRect(scrollBounds)
-                    || scrollBounds.height() < binding.textView.height
-                ) binding.toolbarTitle.text = getString(R.string.movies)
-                else binding.toolbarTitle.text = getString(R.string.movies)
-            } else binding.toolbarTitle.text = getString(R.string.now_showing)
-        }
     }
 
     private fun initializeViewModel() {
@@ -153,6 +137,9 @@ class MainActivity : AppCompatActivity() {
         adapter = MovieAdapter(this, movies)
         binding.rv.adapter = adapter
 
+        val scrollBounds = Rect()
+        binding.scrollView.getHitRect(scrollBounds)
+        binding.toolbarTitle.text = getString(R.string.movies)
         binding.scrollView.setOnScrollChangeListener { v: NestedScrollView, _: Int, scrollY: Int, _: Int, oldScrollY: Int ->
             if (v.getChildAt(v.childCount - 1) != null) {
                 if (scrollY >= v.getChildAt(v.childCount - 1)
@@ -162,6 +149,13 @@ class MainActivity : AppCompatActivity() {
                     viewModel.getMovies(++page)
                 }
             }
+            if (binding.textView.getLocalVisibleRect(scrollBounds)) {
+                if (!binding.textView.getLocalVisibleRect(scrollBounds)
+                    || scrollBounds.height() < binding.textView.height
+                ) binding.toolbarTitle.text = getString(R.string.movies)
+                else binding.toolbarTitle.text = getString(R.string.movies)
+            } else binding.toolbarTitle.text = getString(R.string.now_showing)
+
         }
     }
 }

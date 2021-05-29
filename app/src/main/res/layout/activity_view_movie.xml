@@ -85,7 +85,7 @@
 
                     <TextView
                         android:id="@+id/tvMovieName"
-                        android:layout_width="wrap_content"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/_10sdp"
                         android:ellipsize="marquee"
@@ -103,7 +103,7 @@
                         android:layout_height="wrap_content"
                         android:orientation="vertical"
                         app:layout_constraintEnd_toEndOf="@+id/materialCardView"
-                        app:layout_constraintGuide_begin="194dp" />
+                        app:layout_constraintGuide_begin="180dp" />
 
                     <TextView
                         android:id="@+id/tvDate"
@@ -115,11 +115,12 @@
                         app:layout_constraintStart_toStartOf="@+id/guideline2"
                         app:layout_constraintTop_toBottomOf="@+id/tvMovieName" />
 
-                    <TextView
-                        android:id="@+id/tvGenre"
-                        android:layout_width="wrap_content"
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rvGenre"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        app:layout_constraintStart_toStartOf="@+id/guideline2"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toEndOf="@id/guideline2"
                         app:layout_constraintTop_toBottomOf="@+id/tvDate" />
 
                     <TextView

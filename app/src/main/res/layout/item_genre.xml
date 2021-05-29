@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <TextView
+        android:id="@+id/tvGenre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="@font/poppins_regular"
+        android:text="@string/movies"
+        android:padding="@dimen/_3sdp"
+        android:layout_marginEnd="@dimen/_5sdp"
+        android:background="@drawable/tv_bg"
+        android:textAllCaps="true"
+        android:textColor="@color/white"
+        android:textSize="@dimen/_8ssp" />
+</layout>

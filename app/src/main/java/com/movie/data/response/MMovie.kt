@@ -4,7 +4,7 @@ data class MMovie(
         val adult: Boolean,
         val backdrop_path: String,
         val budget: Long,
-        val genres: MutableList<Genre>,
+        val genres: ArrayList<Genre>,
         val id: Int,
         val original_title: String,
         val overview: String,

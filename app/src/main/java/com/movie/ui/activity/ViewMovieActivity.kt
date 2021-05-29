@@ -6,6 +6,7 @@ import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.movie.R
@@ -15,6 +16,7 @@ import com.movie.data.network.RetrofitClient
 import com.movie.data.repo.MovieRepo
 import com.movie.data.response.MMovie
 import com.movie.databinding.ActivityViewMovieBinding
+import com.movie.ui.adapter.GenreAdapter
 import com.movie.ui.viewmodel.MovieViewModel
 import com.movie.ui.viewmodel.MovieViewModelFactory
 import com.movie.utils.MyLoader
@@ -37,6 +39,7 @@ class ViewMovieActivity : AppCompatActivity() {
     }
 
     private fun init() {
+        binding.toolbarTitle.text = getString(R.string.movies)
         binding.toolbar.setNavigationOnClickListener { onBackPressed() }
         val id = intent.getIntExtra("id", -1)
         loader = MyLoader(this)
@@ -85,6 +88,13 @@ class ViewMovieActivity : AppCompatActivity() {
             ratingBar.rating = movie.vote_average / 2
             tvRatingCount.text = "${movie.vote_average}"
             tvDesc.text = movie.overview
+
+            val layoutManager =
+                LinearLayoutManager(this@ViewMovieActivity, LinearLayoutManager.HORIZONTAL, false)
+            binding.rvGenre.layoutManager = layoutManager
+            binding.rvGenre.setHasFixedSize(true)
+            val adapter = GenreAdapter(movie.genres)
+            binding.rvGenre.adapter = adapter
         }
     }
 
