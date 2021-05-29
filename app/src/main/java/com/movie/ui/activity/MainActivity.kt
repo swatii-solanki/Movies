@@ -52,22 +52,30 @@ class MainActivity : AppCompatActivity() {
         changeToolbarTitle()
         setViewPager()
         setRecyclerView()
-        viewModel.getMovies(page)
+        if (Utility.isNetworkAvailable(this)) {
+            viewModel.getMovies(page)
+        } else {
+            binding.tvNoInternet.visibility = View.VISIBLE
+        }
         viewModel.movieResponse.observe(this, {
             when (it) {
                 is Resource.Loading -> loader.show()
                 is Resource.Success -> {
+                    binding.tvNoInternet.visibility = View.GONE
+                    binding.scrollView.visibility = View.VISIBLE
                     loader.dismiss()
                     Log.d(TAG, "init: $it")
                     adapter.setMovies(it.value.results)
                     viewPagerAdapter.setMovies(it.value.results)
                 }
                 is Resource.Failure -> {
+                    binding.tvNoInternet.visibility = View.VISIBLE
+                    binding.tvNoInternet.text = getString(R.string.something_went_wrong)
                     loader.dismiss()
                     Utility.showSnackBar(
-                            this,
-                            binding.root,
-                            getString(R.string.something_went_wrong)
+                        this,
+                        binding.root,
+                        getString(R.string.something_went_wrong)
                     )
                 }
             }
@@ -82,7 +90,7 @@ class MainActivity : AppCompatActivity() {
         binding.scrollView.setOnScrollChangeListener { _: NestedScrollView, i: Int, i1: Int, i2: Int, i3: Int ->
             if (binding.textView.getLocalVisibleRect(scrollBounds)) {
                 if (!binding.textView.getLocalVisibleRect(scrollBounds)
-                        || scrollBounds.height() < binding.textView.height
+                    || scrollBounds.height() < binding.textView.height
                 ) binding.toolbarTitle.text = getString(R.string.movies)
                 else binding.toolbarTitle.text = getString(R.string.movies)
             } else binding.toolbarTitle.text = getString(R.string.now_showing)
@@ -92,8 +100,8 @@ class MainActivity : AppCompatActivity() {
     private fun initializeViewModel() {
         val repo = MovieRepo(RetrofitClient.buildApi(API::class.java))
         viewModel = ViewModelProvider(
-                this,
-                MovieViewModelFactory(repo)
+            this,
+            MovieViewModelFactory(repo)
         ).get(MovieViewModel::class.java)
     }
 
@@ -103,7 +111,7 @@ class MainActivity : AppCompatActivity() {
         binding.viewPager2.offscreenPageLimit = 1
         val nextItemVisiblePx = resources.getDimension(R.dimen.viewpager_next_item_visible)
         val currentItemHorizontalMarginPx =
-                resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
+            resources.getDimension(R.dimen.viewpager_current_item_horizontal_margin)
         val pageTranslationX = nextItemVisiblePx + currentItemHorizontalMarginPx
         val pageTransformer = ViewPager2.PageTransformer { page: View, position: Float ->
             page.translationX = -pageTranslationX * position
@@ -116,7 +124,7 @@ class MainActivity : AppCompatActivity() {
 
 
         val recyclerViewInstance =
-                binding.viewPager2.children.first { it is RecyclerView } as RecyclerView
+            binding.viewPager2.children.first { it is RecyclerView } as RecyclerView
         recyclerViewInstance.also {
             it.clipToPadding = false
             it.addItemDecoration(ItemDecoration())
@@ -125,10 +133,10 @@ class MainActivity : AppCompatActivity() {
 
     class ItemDecoration : RecyclerView.ItemDecoration() {
         override fun getItemOffsets(
-                outRect: Rect,
-                view: View,
-                parent: RecyclerView,
-                state: RecyclerView.State
+            outRect: Rect,
+            view: View,
+            parent: RecyclerView,
+            state: RecyclerView.State
         ) {
             super.getItemOffsets(outRect, view, parent, state)
             outRect.right = 42.toPx()

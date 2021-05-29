@@ -2,14 +2,18 @@ package com.movie.ui.activity
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.DataBindingUtil
 import androidx.lifecycle.ViewModelProvider
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.movie.R
 import com.movie.data.network.API
 import com.movie.data.network.Resource
 import com.movie.data.network.RetrofitClient
 import com.movie.data.repo.MovieRepo
+import com.movie.data.response.MMovie
 import com.movie.databinding.ActivityViewMovieBinding
 import com.movie.ui.viewmodel.MovieViewModel
 import com.movie.ui.viewmodel.MovieViewModelFactory
@@ -26,7 +30,6 @@ class ViewMovieActivity : AppCompatActivity() {
     private lateinit var viewModel: MovieViewModel
     private lateinit var loader: MyLoader
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = DataBindingUtil.setContentView(this, R.layout.activity_view_movie)
@@ -34,16 +37,22 @@ class ViewMovieActivity : AppCompatActivity() {
     }
 
     private fun init() {
+        binding.toolbar.setNavigationOnClickListener { onBackPressed() }
         val id = intent.getIntExtra("id", -1)
         loader = MyLoader(this)
         initializeViewModel()
-        viewModel.getMovieDetail(id)
+        if (Utility.isNetworkAvailable(this)) {
+            viewModel.getMovieDetail(id)
+        } else {
+            binding.tvNoInternet.visibility = View.VISIBLE
+        }
         viewModel.movieDetailResponse.observe(this, {
             when (it) {
                 is Resource.Loading -> loader.show()
                 is Resource.Success -> {
                     loader.dismiss()
                     Log.d(TAG, "init: $it")
+                    setData(it.value)
                 }
                 is Resource.Failure -> {
                     loader.dismiss()
@@ -55,6 +64,25 @@ class ViewMovieActivity : AppCompatActivity() {
                 }
             }
         })
+    }
+
+    private fun setData(movie: MMovie) {
+        binding.apply {
+            root.visibility = View.VISIBLE
+            tvNoInternet.visibility = View.GONE
+            Glide.with(this@ViewMovieActivity)
+                .load("https://image.tmdb.org/t/p/w400${movie.poster_path}")
+                .thumbnail(0.1f)
+                .diskCacheStrategy(DiskCacheStrategy.ALL)
+                .into(binding.iv)
+
+            tvMovieName.text = movie.original_title
+            tvDate.text = movie.release_date
+            tvReview.text = "Reviews : ${movie.vote_count} (User)"
+            ratingBar.rating = movie.vote_average / 2
+            tvRatingCount.text = "${movie.vote_average}"
+            tvDesc.text = movie.overview
+        }
     }
 
     private fun initializeViewModel() {
