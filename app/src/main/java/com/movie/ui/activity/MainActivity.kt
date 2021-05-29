@@ -155,7 +155,6 @@ class MainActivity : AppCompatActivity() {
                 ) binding.toolbarTitle.text = getString(R.string.movies)
                 else binding.toolbarTitle.text = getString(R.string.movies)
             } else binding.toolbarTitle.text = getString(R.string.now_showing)
-
         }
     }
 }
