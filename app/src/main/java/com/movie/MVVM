@@ -1,0 +1,52 @@
+MVVM architecture -> MVVM architecture is a Model-View-ViewModel architecture
+
+Model -> data and the business logic for ex.- local and remote data source, model classes, repository.
+
+View -> UI Code(Activity, Fragment), XML
+
+ViewModel -> bridge between the View and Model
+
+Why MVVM -> Reusability, Easy for Testing, Maintainable, Scalable, Less Memory Leaks
+
+ViewModelFactory -> if we need to pass some input data to the constructor of the viewModel , we need to create a factory class for viewModel.
+
+SafeAPICall ->
+1. Here safeApiCall for safe calls.
+2. around try/catch block, need to return something in the case of fail
+3. t is the generic type which is exactly what type of response we need to return.
+
+High Order Function -> pass function as a parameter
+Resource -> Success, Failure, Loading
+
+Sealed Class -> provide more control over inheritance, similar to enum classes
+
+Resource<out T> -> compiler doesn't know what type of object it is so we need to declare what type of object it is
+here we r only returning the response so we have declared out type
+out -> produced
+in -> consumed
+
+Kotlin Coroutines ->  manage concurrency
+
+why -> suppose we want to perform some operation on background thread
+
+1. RXJava -> fetchUser()
+                     .subscribeOn(Schedulers.io())
+                     .observerOn(AndroidSchedulers.mainThread())
+                     .subscribe { user ->
+                         showUser(user)
+                     }
+
+2. Coroutines -> suspend fun fetchAndShowUser() {
+                      val user = fetchUser() // fetch on IO thread
+                      showUser(user) // back on UI thread
+                 }
+
+                 suspend fun fetchUser(): User {
+                     return GlobalScope.async(Dispatchers.IO) {
+                         // make network call
+                         // return user
+                     }.await()
+                 }
+
+launch: fire and forget
+async: perform a task and return a result

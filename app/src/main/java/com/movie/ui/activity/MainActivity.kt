@@ -48,6 +48,15 @@ class MainActivity : AppCompatActivity() {
         init()
     }
 
+    private fun initializeViewModel() {
+        val repo = MovieRepo(RetrofitClient.buildApi(API::class.java))
+
+        viewModel = ViewModelProvider(
+            this,
+            MovieViewModelFactory(repo)
+        ).get(MovieViewModel::class.java)
+    }
+
     private fun init() {
         loader = MyLoader(this)
         initializeViewModel()
@@ -85,13 +94,6 @@ class MainActivity : AppCompatActivity() {
         })
     }
 
-    private fun initializeViewModel() {
-        val repo = MovieRepo(RetrofitClient.buildApi(API::class.java))
-        viewModel = ViewModelProvider(
-            this,
-            MovieViewModelFactory(repo)
-        ).get(MovieViewModel::class.java)
-    }
 
     private fun setViewPager() {
         viewPagerAdapter = MoviePagerAdapter(this)
